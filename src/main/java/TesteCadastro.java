@@ -16,6 +16,8 @@ public class TesteCadastro {
 	
 		driver.findElement(By.id("elementosForm:nome")).sendKeys("Teste"); //Input Nome.
 		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Testando"); // Input Sobrenome.
+		driver.findElement(By.id("elementosForm:sexo:0")).click(); //Escolhendo Sexo Masculino.
+		driver.findElement(By.id("elementosForm:comidaFavorita:1")).click(); // Escolhando Comida (Frango).
 		
 	}
 }
