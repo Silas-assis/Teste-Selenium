@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 public class TesteCadastro {
 	@Test
 
-	public void deveBuscarTextoNaPagina() {
+	public void criandoUmCadastro() {
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\assissl\\Desktop\\Curso Selenium\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
