@@ -1,4 +1,5 @@
 import org.junit.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
@@ -13,6 +14,8 @@ public class TesteCadastro {
 		driver.get("file:///" + System.getProperty("user.dir") + 
 				"/src/main/resources/componentes.html");
 	
+		driver.findElement(By.id("elementosForm:nome")).sendKeys("Teste"); //Input Nome.
+		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Testando"); // Input Sobrenome.
 		
 	}
 }
