@@ -1,3 +1,4 @@
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -31,5 +32,15 @@ public class TesteCadastro {
 		comboEsportes.selectByVisibleText("Futebol");
 		
 		driver.findElement(By.id("elementosForm:cadastrar")).click();//Botão para Cadastrar.
+		
+		Assert.assertTrue(driver.findElement(By.id("resultado")).getText().startsWith("Cadastrado!"));
+		Assert.assertTrue(driver.findElement(By.id("descNome")).getText().endsWith("Teste"));
+		Assert.assertTrue(driver.findElement(By.id("descSobrenome")).getText().endsWith("Testando"));
+		Assert.assertTrue(driver.findElement(By.id("descSexo")).getText().endsWith("Masculino"));
+		Assert.assertTrue(driver.findElement(By.id("descComida")).getText().endsWith("Frango"));
+		Assert.assertTrue(driver.findElement(By.id("descEscolaridade")).getText().endsWith("superior"));
+		Assert.assertEquals("Esportes: Futebol Corrida", driver.findElement(By.id("descEsportes")).getText());
+		
+		driver.quit();
 	}
 }
