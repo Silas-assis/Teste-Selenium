@@ -6,7 +6,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class TesteJanelaPopUp {
 
 	@Test
-	public void popUp() {
+	public void InteragirPopUp() {
 		System.setProperty("webdriver.chrome.driver",
 				"C:\\Users\\assissl\\Desktop\\Curso Selenium\\chromedriver_win32\\chromedriver.exe");
 		WebDriver driver = new ChromeDriver();
