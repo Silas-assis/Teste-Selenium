@@ -4,13 +4,12 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.support.ui.Select;
 
 public class TesteCadastro {
 
 	private WebDriver driver;
+	private DSL dsl;
 
 	@Before
 	public void inicializa() {
@@ -19,6 +18,7 @@ public class TesteCadastro {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize(); // Comando que deixa o navegador em tela cheia.
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 
 	@After
@@ -28,23 +28,13 @@ public class TesteCadastro {
 
 	@Test
 	public void criandoUmCadastro() {
-
-		driver.findElement(By.id("elementosForm:nome")).sendKeys("Teste"); // Input Nome.
-		driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Testando"); // Input Sobrenome.
-		driver.findElement(By.id("elementosForm:sexo:0")).click(); // Escolhendo Sexo Masculino.
-		driver.findElement(By.id("elementosForm:comidaFavorita:1")).click(); // Escolhendo Comida (Frango).
-
-		WebElement elementEscolaridade = driver.findElement(By.id("elementosForm:escolaridade")); // Escolhendo
-																									// Escolaridade.
-		Select comboEscolaridade = new Select(elementEscolaridade);
-		comboEscolaridade.selectByVisibleText("Superior");
-
-		WebElement elementEsportes = driver.findElement(By.id("elementosForm:esportes")); // Escolhendo Esportes.
-		Select comboEsportes = new Select(elementEsportes);
-		comboEsportes.selectByVisibleText("Corrida");
-		comboEsportes.selectByVisibleText("Futebol");
-
-		driver.findElement(By.id("elementosForm:cadastrar")).click();// Botão para Cadastrar.
+		dsl.escreve("elementosForm:nome", "Teste");
+		dsl.escreve("elementosForm:sobrenome", "Testando");
+		dsl.clicarRadio("elementosForm:sexo:0");
+		dsl.clicarRadio("elementosForm:comidaFavorita:1");
+		dsl.selecionarCombo("elementosForm:escolaridade", "Superior");
+		dsl.selecionarCombo("elementosForm:esportes", "Corrida");
+		dsl.clicarBotao("elementosForm:cadastrar");
 
 		Assert.assertTrue(driver.findElement(By.id("resultado")).getText().startsWith("Cadastrado!"));
 		Assert.assertTrue(driver.findElement(By.id("descNome")).getText().endsWith("Teste"));
@@ -52,6 +42,6 @@ public class TesteCadastro {
 		Assert.assertTrue(driver.findElement(By.id("descSexo")).getText().endsWith("Masculino"));
 		Assert.assertTrue(driver.findElement(By.id("descComida")).getText().endsWith("Frango"));
 		Assert.assertTrue(driver.findElement(By.id("descEscolaridade")).getText().endsWith("superior"));
-		Assert.assertEquals("Esportes: Futebol Corrida", driver.findElement(By.id("descEsportes")).getText());
+		Assert.assertEquals("Esportes: Corrida", driver.findElement(By.id("descEsportes")).getText());
 	}
 }

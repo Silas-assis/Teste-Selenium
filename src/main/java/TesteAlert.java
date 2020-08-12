@@ -10,6 +10,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 public class TesteAlert {
 
 	private WebDriver driver;
+	private DSL dsl;
 
 	@Before
 	public void inicializa() {
@@ -18,6 +19,7 @@ public class TesteAlert {
 		driver = new ChromeDriver();
 		driver.manage().window().maximize(); // Comando que deixa o navegador em tela cheia.
 		driver.get("file:///" + System.getProperty("user.dir") + "/src/main/resources/componentes.html");
+		dsl = new DSL(driver);
 	}
 
 	@After
@@ -27,10 +29,10 @@ public class TesteAlert {
 
 	@Test
 	public void TestAlert() {
-
-		driver.findElement(By.id("alert")).click();
+		
+		dsl.clicarBotao("alert");
 		Alert alert = driver.switchTo().alert();
-		String texto = alert.getText();
+		String texto = alert.getText(); 
 		Assert.assertEquals("Alert Simples", texto);
 		alert.accept();
 
@@ -39,15 +41,15 @@ public class TesteAlert {
 
 	@Test
 	public void TestAlertConfirm() {
-
-		driver.findElement(By.id("confirm")).click();
+		
+		dsl.clicarBotao("confirm");
 		Alert alerta = driver.switchTo().alert();
 		Assert.assertEquals("Confirm Simples", alerta.getText());
 		alerta.accept();
 		Assert.assertEquals("Confirmado", alerta.getText());
 		alerta.accept();
 
-		driver.findElement(By.id("confirm")).click();
+		dsl.clicarBotao("confirm");
 		alerta = driver.switchTo().alert();
 		Assert.assertEquals("Confirm Simples", alerta.getText());
 		alerta.dismiss();
@@ -57,8 +59,8 @@ public class TesteAlert {
 
 	@Test
 	public void TestAlertConfirmPrompt() {
-
-		driver.findElement(By.id("prompt")).click();
+		
+		dsl.clicarBotao("prompt");
 		Alert alerta = driver.switchTo().alert();
 		Assert.assertEquals("Digite um numero", alerta.getText());
 		alerta.sendKeys("12");
